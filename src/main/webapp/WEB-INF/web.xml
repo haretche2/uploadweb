@@ -4,4 +4,15 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+    <servlet>
+        <servlet-name>login</servlet-name>
+        <servlet-class>edu.um.umflix.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>login</servlet-name>
+        <url-pattern>/loginservlet</url-pattern>
+    </servlet-mapping>
 </web-app>
+
+
