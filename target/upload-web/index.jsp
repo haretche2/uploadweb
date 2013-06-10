@@ -1,9 +1,10 @@
+
 <%
-session.getAttribute("token");
 String error = String.valueOf(session.getAttribute("error"));
 if(error==null){
    error = "";
 }
+out.print(error);
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -31,10 +32,10 @@ if(error==null){
     	 <form action="loginservlet" method="post">
     	 <span class="error"><%=error%></span>
          <br/>
-     	<label>Username: <input type="text" name="username" id="username" required="required" /></label>
+     	<label>Username: <input type="email" name="username" id="username" required="required" /></label>
         <br/>
         <br/>
-        <label>Password: <input type="text" name="password" id="password" required="required" /></label>
+        <label>Password: <input type="password" name="password" id="password" required="required" /></label>
         <br/>
         <br/>
         <center><input type="submit" name="ingresar" value="Ingresar" style="font-size:16px"/></center>

@@ -156,6 +156,30 @@ ul.nav a { zoom: 1; }  /* the zoom property gives IE the hasLayout trigger it ne
 	margin-right:50px;	
 }
 .error{
-    color::#F00;
+	color:#F00;
+}
+.movie{
+	width: 504px;
+	float:left;
+	box-shadow: 0 0 15px #ddd;
+	background: linear-gradient(#E6E6E6, #FFFFFF);
+}
+.movie h1{
+	font-size:18px;
+	color:#009;
+}
+.movie table{
+	font-size:14px;
+}
+.movie input {
+	width:200px;
+}
+.movie h3{
+	font-size:16px;
+	margin-bottom:5px;
+	margin-top:5px;
+}
+.movie p{
+	font-size:12px;
 }
 

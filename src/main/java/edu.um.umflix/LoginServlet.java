@@ -28,9 +28,9 @@ public class LoginServlet extends HttpServlet{
         try {
             String token = uManager.login(user);
             req.getSession().setAttribute("token", token);
-            req.getRequestDispatcher("/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/upload.jsp").forward(req, resp);
         } catch (InvalidUserException e) {
-            req.setAttribute("error","Unknown user, please try again.");
+            req.getSession().setAttribute("error","Unknown user, please try again.");
             req.getRequestDispatcher("/index.jsp").forward(req, resp);
         }
     }
