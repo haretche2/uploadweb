@@ -74,8 +74,14 @@
             </tr>
          </table>
          <br/>
-         <h3>File Upload:</h3>
-            <p>Select a file to upload: </p>
+         <h3>Clip Upload:</h3>
+            <p>Clip 1: </p>
+            <input type="file" name="file" id="file" size="50" style="width:400px;margin-left:10px;font-size:14px" required />
+         <br />
+         <p>Clip 2: </p>
+            <input type="file" name="file" id="file" size="50" style="width:400px;margin-left:10px;font-size:14px" required />
+         <br />
+         <p>Clip 3: </p>
             <input type="file" name="file" id="file" size="50" style="width:400px;margin-left:10px;font-size:14px" required />
          <br />
         <center><input style="width:120px;font-size:16px;margin-bottom:20px;" type="submit" name="ingresar" value="Upload" style="font-size:16px"/></center>

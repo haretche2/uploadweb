@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *
+ * Servlet that handles the login of the user to the upload system.
+ * Return the token if the user is register in the system.
  */
-
 public class LoginServlet extends HttpServlet{
     @EJB(name = "UserManager")
     UserManager uManager;

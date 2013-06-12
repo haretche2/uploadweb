@@ -180,6 +180,8 @@ ul.nav a { zoom: 1; }  /* the zoom property gives IE the hasLayout trigger it ne
 	margin-top:5px;
 }
 .movie p{
-	font-size:12px;
+	font-size:14px;
+	margin-top:5px;
+	margin-bottom:5px;
 }
 
