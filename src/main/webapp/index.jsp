@@ -1,10 +1,10 @@
 
 <%
 String error = "";
-if(session.getAttribute("error")== null){
+if(request.getAttribute("error")== null){
    error = "";
    
-}else error = String.valueOf(session.getAttribute("error"));
+}else error = String.valueOf(request.getAttribute("error"));
 
 %>
 

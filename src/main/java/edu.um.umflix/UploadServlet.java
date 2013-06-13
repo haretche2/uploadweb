@@ -9,6 +9,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -26,50 +27,67 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- *
+ * Servlet that uploads the movie to UMFlix.
  */
 public class UploadServlet extends HttpServlet{
-    @EJB(name="VendorManager")
-    edu.um.umfix.vendormanager.VendorManager vManager;
+    Logger log = Logger.getLogger(UploadServlet.class);
+
+    @EJB(beanName = "VendorManager")
+    protected edu.um.umfix.vendormanager.VendorManager vManager;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HashMap<String,String> mapValues = new HashMap<String, String>();
         List<Clip> clips = new ArrayList<Clip>();
+        List<Byte[]> listData = new ArrayList<Byte[]>();
         int i=0;
+
         try{
-        List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+        List<FileItem> items = getFileItems(request);
         for (FileItem item : items) {
             if (item.isFormField()) {
                 // Process normal fields here.
 
                 mapValues.put(item.getFieldName(),item.getString());
-//                w.print("Field name: " + item.getFieldName());
-//                w.print("Field value: " + item.getString());
+               // w.print("Field name: " + item.getFieldName());
+               // w.print("Field value: " + item.getString());
             } else {
                 // Process <input type="file"> here.
 
                 InputStream movie =item.getInputStream();
                 byte[] bytes = IOUtils.toByteArray(movie);
                 Byte[] clipBytes = ArrayUtils.toObject(bytes);
-                Clip clip = new Clip(Long.valueOf(mapValues.get("duration"))/3,i);
-                clips.add(clip);
-                ClipData clipData = new ClipData(clipBytes,clip);
-                try {
-                    vManager.uploadClip(mapValues.get("token"),new Role(Role.RoleType.MOVIE_PROVIDER.getRole()),clipData);
-                } catch (InvalidTokenException e) {
-                    e.printStackTrace();
-                    request.getSession().setAttribute("error","Unknown user, please try again.");
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
-                }
+                Clip clip = new Clip(Long.valueOf(0),i);
+                clips.add(i,clip);
+                listData.add(i,clipBytes);
                 i++;
+               // w.print(movie);
+
             }
         }
         }catch (FileUploadException e){
-            e.printStackTrace();
-            request.getSession().setAttribute("error","Error uploading file, please try again");
+           log.error("Error uploading file, please try again.");
+            request.setAttribute("error", "Error uploading file, please try again");
             request.getRequestDispatcher("/upload.jsp").forward(request, response);
         }
+        //Sets duration of clip and saves clipdata
+        for(int j =0;j<clips.size();j++) {
+            clips.get(j).setDuration(Long.valueOf(mapValues.get("clipduration"+j)));
+            ClipData clipData = new ClipData(listData.get(j),clips.get(j));
+
+            try {
+               vManager.uploadClip(mapValues.get("token"),new Role(Role.RoleType.MOVIE_PROVIDER.getRole()),clipData);
+                log.info("ClipData uploader!");
+            }catch (InvalidTokenException e) {
+               log.error("Unknown user, please try again.");
+                request.setAttribute("error", "Unknown user, please try again.");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                return;
+            }
+
+
+        }
+
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date endDate=null;
         Date startDate=null;
@@ -79,9 +97,10 @@ public class UploadServlet extends HttpServlet{
             startDate = formatter.parse(mapValues.get("startDate"));
             premiereDate = formatter.parse(mapValues.get("premiere"));
         } catch (ParseException e) {
-            e.printStackTrace();
-            request.getSession().setAttribute("error","Invalid date, please try again");
+            log.error("Error parsing date");
+            request.setAttribute("error","Invalid date, please try again");
             request.getRequestDispatcher("/upload.jsp").forward(request, response);
+            return;
 
         }
 
@@ -97,11 +116,18 @@ public class UploadServlet extends HttpServlet{
 
         try {
                 vManager.uploadMovie(mapValues.get("token"),new Role(Role.RoleType.MOVIE_PROVIDER.getRole()),movie);
+                log.info("Movie uploaded!");
         } catch (InvalidTokenException e) {
-           e.printStackTrace();
-           request.getSession().setAttribute("error","Unknown user, please try again.");
+           log.error("Unknown user, please try again.");
+           request.setAttribute("error", "Unknown user, please try again.");
            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            return;
         }
+        request.getRequestDispatcher("/upload.jsp").forward(request, response);
+    }
+
+    protected List<FileItem> getFileItems(HttpServletRequest request) throws FileUploadException {
+        return new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
     }
 
 

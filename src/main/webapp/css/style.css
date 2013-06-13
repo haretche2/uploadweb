@@ -183,5 +183,6 @@ ul.nav a { zoom: 1; }  /* the zoom property gives IE the hasLayout trigger it ne
 	font-size:14px;
 	margin-top:5px;
 	margin-bottom:5px;
+	color:#009;
 }
 

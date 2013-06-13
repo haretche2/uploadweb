@@ -18,6 +18,7 @@
           <groupId>org.apache.openejb</groupId>
           <artifactId>javaee-api</artifactId>
           <version>5.0-2</version>
+          <scope>provided</scope>
       </dependency>
        <dependency>
           <groupId>usermanager</groupId>
@@ -39,12 +40,37 @@
           <artifactId>commons-fileupload</artifactId>
           <version>1.2</version>
       </dependency>
-
-
+      <dependency>
+          <groupId>commons-lang</groupId>
+          <artifactId>commons-lang</artifactId>
+          <version>2.6</version>
+      </dependency>
+      <dependency>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+          <version>1.2.17</version>
+      </dependency>
+      <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-all</artifactId>
+          <version>1.9.5</version>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>emma-maven-plugin</artifactId>
+                <version>1.0-alpha-3</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
   <build>
     <finalName>upload-web</finalName>
   </build>
- 
+
+
+
 </project>
