@@ -9,7 +9,7 @@ upload-web
 
 1. Download postgreSQL
 2. Create user: webuser password: webuser
-3. Create database umflix-persistance
+3. Create database umflix-persistence
 
 **Configuring tomEE**
 
@@ -19,10 +19,10 @@ From:  https://www.wetransfer.com/downloads/e086f50ee1e1fa77c5ce11a7963c895e2013
 3. Add resource to tomee.xml and openejb.xml on /conf of tomee:
 
 	`<Resource id="umflix-persistence" type="DataSource">`<br />
-		&nbsp`JdbcDriver org.postgresql.Driver`
-		&nbsp`JdbcUrl jdbc:postgresql://localhost:5432/umflix-persistence
-		&nbsp`UserName webuser`
-		&nbsp`Password webuser`
+		&nbsp;`JdbcDriver org.postgresql.Driver`<br />
+		&nbsp;`JdbcUrl jdbc:postgresql://localhost:5432/umflix-persistence<br />
+		&nbsp;`UserName webuser`<br />
+		&nbsp;`Password webuser`<br />
 	`</Resource>`
 	
 4. Add postgreSQL driver to tomee's /lib. 
