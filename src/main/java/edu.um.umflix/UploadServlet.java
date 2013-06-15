@@ -68,11 +68,13 @@ public class UploadServlet extends HttpServlet{
         }catch (FileUploadException e){
            log.error("Error uploading file, please try again.");
             request.setAttribute("error", "Error uploading file, please try again");
+            request.setAttribute("token",mapValues.get("token"));
             request.getRequestDispatcher("/upload.jsp").forward(request, response);
         }
         //Sets duration of clip and saves clipdata
         for(int j =0;j<clips.size();j++) {
-            clips.get(j).setDuration(Long.valueOf(mapValues.get("clipduration"+j)));
+            int duration = timeToInt(mapValues.get("clipduration"+j));
+            clips.get(j).setDuration(Long.valueOf(duration));
             ClipData clipData = new ClipData(listData.get(j),clips.get(j));
 
             try {
@@ -98,6 +100,7 @@ public class UploadServlet extends HttpServlet{
             premiereDate = formatter.parse(mapValues.get("premiere"));
         } catch (ParseException e) {
             log.error("Error parsing date");
+            request.setAttribute("token",mapValues.get("token"));
             request.setAttribute("error","Invalid date, please try again");
             request.getRequestDispatcher("/upload.jsp").forward(request, response);
             return;
@@ -123,11 +126,19 @@ public class UploadServlet extends HttpServlet{
            request.getRequestDispatcher("/index.jsp").forward(request, response);
             return;
         }
+        request.setAttribute("message","Movie uploaded successfully.");
+        request.setAttribute("token", mapValues.get("token"));
         request.getRequestDispatcher("/upload.jsp").forward(request, response);
     }
 
     protected List<FileItem> getFileItems(HttpServletRequest request) throws FileUploadException {
         return new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+    }
+
+    private int timeToInt(String time){
+        String[] split = time.split(":");
+        int seconds = Integer.valueOf(split[0])*360 + Integer.valueOf(split[1])*60 + Integer.valueOf(split[2]);
+        return seconds;
     }
 
 

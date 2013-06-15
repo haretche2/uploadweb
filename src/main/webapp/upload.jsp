@@ -1,3 +1,15 @@
+<%
+String error = "";
+if(request.getAttribute("error")== null){
+   error = "";
+   
+}else error = String.valueOf(request.getAttribute("error"));
+String message = "";
+if(request.getAttribute("message")== null){
+   error = "";
+   
+}else error = String.valueOf(request.getAttribute("message"));
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html5; charset=UTF-8" />
@@ -20,6 +32,8 @@
      <div class="movie">
      <h1>Ingresar una nueva pelicula</h1>
      	<form method="post" action="uploadservlet" enctype="multipart/form-data">
+        <center><span class="error"><%=error%></span></center>
+        <center><span class="message"><%=message%></span></center>
          <table border="0">
          	<tr>
             <td>Title: </td>
@@ -78,17 +92,17 @@
             <p>Clip 1: </p>
             <input type="file" name="file" id="file" size="50" style="width:400px;margin-left:10px;font-size:14px" required />
          <br />
-         <label style="font-size:12px;margin-left:20px">Duration: </label><input type="time" name="clipduration0" id="clipduration1" style="width:100px"/>
+         <label style="font-size:12px;margin-left:20px">Duration: </label><input type="time" name="clipduration0" id="clipduration0" step="10" style="width:100px" required/>
          <br />
          <p>Clip 2: </p>
             <input type="file" name="file" id="file" size="50" style="width:400px;margin-left:10px;font-size:14px" required />
          <br />
-         	<label style="font-size:12px;margin-left:20px">Duration: </label><input type="time" name="clipduration1" id="clipduration1" style="width:100px"/>
+         	<label style="font-size:12px;margin-left:20px">Duration: </label><input type="time" name="clipduration1" id="clipduration1" step="10" style="width:100px"required/>
          <br />
          <p>Clip 3: </p>
             <input type="file" name="file" id="file" size="50" style="width:400px;margin-left:10px;font-size:14px" required />
          <br />
-         <label style="font-size:12px;margin-left:20px">Duration: </label><input type="time" name="clipduration2" id="clipduration1" style="width:100px"/>
+         <label style="font-size:12px;margin-left:20px">Duration: </label><input type="time" name="clipduration2" id="clipduration2" step="10" style="width:100px" required/>
          <br />
         <center><input style="width:120px;font-size:16px;margin-bottom:20px;" type="submit" name="ingresar" value="Upload" style="font-size:16px"/></center>
         <input type="hidden" name="token" id="token" value="<%=request.getAttribute("token")%>" />

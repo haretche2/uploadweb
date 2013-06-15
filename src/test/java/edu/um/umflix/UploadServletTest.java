@@ -75,7 +75,7 @@ public class UploadServletTest {
             Mockito.verify(vManager, Mockito.times(1)).uploadMovie(token.capture(), role.capture(), movie.capture());
 
             Assert.assertEquals("validToken", token.getValue());
-            Assert.assertEquals(Long.valueOf(11),movie.getValue().getClips().get(0).getDuration());
+            Assert.assertEquals(Long.valueOf(1681),movie.getValue().getClips().get(0).getDuration());
 
             Mockito.verify(request,Mockito.times(1)).getRequestDispatcher("/upload.jsp");
         } catch (ServletException e) {

@@ -31,9 +31,9 @@ if(request.getAttribute("error")== null){
      <div class="login">
      <div class="loginContent">
     	 <form action="loginservlet" method="post">
-    	 <span class="error"><%=error%></span>
+    	 <center><span class="error"><%=error%></span></center>
          <br/>
-     	<label>Username: <input type="email" name="username" id="username" required="required" /></label>
+     	<label>Username: <input type="email" name="email" id="email" required="required" /></label>
         <br/>
         <br/>
         <label>Password: <input type="password" name="password" id="password" required="required" /></label>

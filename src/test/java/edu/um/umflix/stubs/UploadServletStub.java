@@ -44,6 +44,9 @@ public class UploadServletStub extends UploadServlet{
             }
             if(fields[i].equals("premiere") && error.equals("date"))
                 Mockito.when(item.getString()).thenReturn("11");
+            if(fields[i].equals("clipduration0")){
+                Mockito.when(item.getString()).thenReturn("01:22:01");
+            }
             list.add(item);
         }
         try{

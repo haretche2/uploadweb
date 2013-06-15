@@ -185,4 +185,7 @@ ul.nav a { zoom: 1; }  /* the zoom property gives IE the hasLayout trigger it ne
 	margin-bottom:5px;
 	color:#009;
 }
+.error{
+	color:#090;
+}
 

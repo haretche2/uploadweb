@@ -27,7 +27,7 @@ public class LoginServletTest {
     public void setUp(){
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        Mockito.when(request.getParameter("name")).thenReturn("mbomio@gmail.com");
+        Mockito.when(request.getParameter("email")).thenReturn("mbomio@gmail.com");
         Mockito.when(request.getParameter("password")).thenReturn("12345");
         Mockito.when(request.getRequestDispatcher("/upload.jsp")).thenReturn(Mockito.mock(RequestDispatcher.class));
         Mockito.when(request.getRequestDispatcher("/index.jsp")).thenReturn(Mockito.mock(RequestDispatcher.class));
