@@ -18,12 +18,12 @@ From:  https://www.wetransfer.com/downloads/e086f50ee1e1fa77c5ce11a7963c895e2013
 2. Drop jars in /lib of tomEE 
 3. Add resource to tomee.xml and openejb.xml on /conf of tomee:
 
-	`<Resource id="umflix-persistence" type="DataSource">`<br />
-		&nbsp;`JdbcDriver org.postgresql.Driver`<br />
-		&nbsp;`JdbcUrl jdbc:postgresql://localhost:5432/umflix-persistence<br />
-		&nbsp;`UserName webuser`<br />
-		&nbsp;`Password webuser`<br />
-	`</Resource>`
+	<Resource id="umflix-persistence" type="DataSource">
+		JdbcDriver org.postgresql.Driver
+		JdbcUrl jdbc:postgresql://localhost:5432/umflix-persistence
+		UserName webuser
+		Password webuser
+	</Resource>
 	
 4. Add postgreSQL driver to tomee's /lib. 
  From: http://jdbc.postgresql.org/download.html
